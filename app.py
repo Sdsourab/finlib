@@ -144,8 +144,8 @@ if page == "Dashboard":
             
             # --- MATPLOTLIB IMPLEMENTATION (FIXED) ---
             fig, ax = plt.subplots(figsize=(8, 5))
-            fig.patch.set_alpha(0.0) # Transparent background for the figure
-            ax.set_facecolor('none') # Transparent background for the axes
+            fig.patch.set_alpha(0.0)
+            ax.set_facecolor('none')
 
             ax.bar(x_data, y_data, color=bar_colors[:len(x_data)], width=0.6)
             ax.plot(x_data, y_data, color='lightgrey', marker='o', markersize=8,
