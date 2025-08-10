@@ -116,7 +116,7 @@ if page == "Dashboard":
             fig_gauge = go.Figure(go.Indicator(
                 mode = "gauge+number",
                 value = progress,
-                title = {'text': f"<b>{read_books} of {total_books} Books Completed</b>", 'font': {'size': 20}},
+                title = {'text': f"<b>{read_books} of {total_books} Books Completed</b>", 'font': {'size': 20, 'color': '#013237'}},
                 gauge = {
                     'axis': {'range': [None, 100], 'tickwidth': 1, 'tickcolor': "darkblue"},
                     'bar': {'color': "#4CA771"},
@@ -125,7 +125,9 @@ if page == "Dashboard":
                     'bordercolor': "#EAEAEA",
                     'steps': [
                         {'range': [0, 100], 'color': '#EAF9E7'}],
-                }))
+                },
+                number={'font': {'color': '#013237'}}
+                ))
             fig_gauge.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', height=300, margin=dict(l=20, r=20, t=50, b=20))
             st.plotly_chart(fig_gauge, use_container_width=True)
         else:
@@ -140,9 +142,10 @@ if page == "Dashboard":
             y_data = genre_counts.values
             bar_colors = ['#F8B14D', '#F46A9B', '#EC44C3', '#9C34E3', '#6A23D9']
             
+            # --- MATPLOTLIB IMPLEMENTATION (FIXED) ---
             fig, ax = plt.subplots(figsize=(8, 5))
-            fig.patch.set_facecolor('none')
-            ax.set_facecolor('none')
+            fig.patch.set_alpha(0.0) # Transparent background for the figure
+            ax.set_facecolor('none') # Transparent background for the axes
 
             ax.bar(x_data, y_data, color=bar_colors[:len(x_data)], width=0.6)
             ax.plot(x_data, y_data, color='lightgrey', marker='o', markersize=8,
@@ -164,7 +167,8 @@ if page == "Dashboard":
             ax.set_yticks([])
 
             plt.tight_layout()
-            st.pyplot(fig)
+            st.pyplot(fig, facecolor='none')
+            # --- END OF MATPLOTLIB IMPLEMENTATION ---
 
         else:
             st.info("Your genre summary will appear here.")
@@ -188,7 +192,8 @@ if page == "Dashboard":
         fig_daily.update_layout(
             barmode='group', title_text="Today's Reading Activity", xaxis_title="Book Title", yaxis_title="Total",
             paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
-            legend_title_text='Metric', bargap=0.2, bargroupgap=0.1
+            legend_title_text='Metric', bargap=0.2, bargroupgap=0.1,
+            font_color='#013237'
         )
         st.plotly_chart(fig_daily, use_container_width=True)
 
