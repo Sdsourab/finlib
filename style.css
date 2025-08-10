@@ -67,6 +67,12 @@ h3 { font-size: 1.6rem; font-weight: 600; }
     text-decoration: underline;
 }
 
+/* --- FIX FOR ADMIN LOGIN TEXT (GREEN BOX) --- */
+[data-testid="stExpander"] summary {
+    color: var(--text-color) !important;
+}
+
+
 /* --- WIDGET & CARD STYLING --- */
 div[data-testid="stMetric"],
 div[data-testid="stForm"],
