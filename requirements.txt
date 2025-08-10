@@ -4,3 +4,4 @@ plotly
 plotly-express
 streamlit-option-menu
 matplotlib
+kaleido==0.1.0.post1
