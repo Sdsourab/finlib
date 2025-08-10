@@ -5,7 +5,7 @@
 
 /* --- COLOR & FONT VARIABLES --- */
 :root {
-    --bg-color: #F8F9FD; /* Soft, clean background */
+    --bg-color: #F8F9FD;
     --card-bg-color: #FFFFFF;
     --primary-accent: #4CA771;
     --secondary-accent: #C0E6BA;
@@ -16,22 +16,22 @@
 
 /* --- GENERAL & BODY with Background Pattern --- */
 body {
-    background-color: var(--bg-color);
+    background-color: var(--bg-color) !important;
     background-image:
         radial-gradient(circle at 1px 1px, rgba(1, 50, 55, 0.05) 1px, transparent 0);
     background-size: 20px 20px;
 }
 
 .stApp {
-    font-family: var(--font-family);
-    color: var(--text-color);
-    background-color: transparent;
+    font-family: var(--font-family) !important;
+    color: var(--text-color) !important;
+    background-color: transparent !important;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-family);
-    font-weight: 700;
-    color: var(--text-color);
+    font-family: var(--font-family) !important;
+    font-weight: 700 !important;
+    color: var(--text-color) !important;
 }
 h1 { font-size: 2.8rem; }
 h2 { font-size: 2.2rem; }
@@ -39,7 +39,7 @@ h3 { font-size: 1.6rem; font-weight: 600; }
 
 /* --- SIDEBAR STYLING --- */
 [data-testid="stSidebar"] {
-    background-color: var(--card-bg-color);
+    background-color: var(--card-bg-color) !important;
     border-right: 1px solid #EAEAEA;
     padding: 20px 15px;
 }
@@ -70,22 +70,17 @@ h3 { font-size: 1.6rem; font-weight: 600; }
 /* --- WIDGET & CARD STYLING --- */
 div[data-testid="stMetric"],
 div[data-testid="stForm"],
-div[data-testid="stImage"] { /* Target st.pyplot container */
-    background-color: var(--card-bg-color);
+div[data-testid="stImage"] > div {
+    background-color: var(--card-bg-color) !important;
     border: 1px solid #EAEAEA;
     border-radius: 16px;
     padding: 25px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
 }
-div[data-testid="stImage"] {
+div[data-testid="stImage"] > div {
     padding: 15px;
 }
 
-/* Progress Bar */
-[data-testid="stProgress"] > div > div {
-    background-image: linear-gradient(to right, var(--secondary-accent), var(--primary-accent));
-    border-radius: 10px;
-}
 
 /* BOOK CARD STYLING */
 .book-card {
@@ -108,17 +103,6 @@ div[data-testid="stImage"] {
 .book-card-header { font-size: 1.2rem; font-weight: 600; color: var(--text-color); margin-bottom: 5px; }
 .book-card-author { font-size: 0.9rem; color: #6E6E73; margin-bottom: 10px; }
 .book-card-details { font-size: 0.85rem; color: #8A8A8E; }
-.status-tag-card {
-    display: inline-block;
-    padding: 5px 14px;
-    background-color: var(--secondary-accent);
-    color: var(--text-color);
-    border-radius: 15px;
-    font-size: 0.8rem;
-    font-weight: 500;
-    align-self: flex-start;
-    margin-top: auto;
-}
 
 /* --- BUTTON & INPUT STYLING --- */
 div[data-testid="stButton"] > button {
