@@ -68,6 +68,7 @@ with st.sidebar:
         options.insert(1, "Add Book")
         icons.insert(1, "plus-circle-fill")
 
+    # --- FIX FOR SIDEBAR TEXT (RED BOX) ---
     page = option_menu(menu_title=None, options=options, icons=icons, menu_icon="cast", default_index=0,
         styles={
             "container": {"padding": "0!important", "background-color": "transparent"},
@@ -142,7 +143,6 @@ if page == "Dashboard":
             y_data = genre_counts.values
             bar_colors = ['#F8B14D', '#F46A9B', '#EC44C3', '#9C34E3', '#6A23D9']
             
-            # --- MATPLOTLIB IMPLEMENTATION (FIXED) ---
             fig, ax = plt.subplots(figsize=(8, 5))
             fig.patch.set_alpha(0.0)
             ax.set_facecolor('none')
@@ -168,11 +168,36 @@ if page == "Dashboard":
 
             plt.tight_layout()
             st.pyplot(fig, facecolor='none')
-            # --- END OF MATPLOTLIB IMPLEMENTATION ---
 
         else:
             st.info("Your genre summary will appear here.")
 
+
+    st.markdown("---")
+    st.subheader("Log Today's Reading")
+    if not st.session_state.library_df.empty:
+        with st.form("multi_log_form"):
+            for i, entry in enumerate(st.session_state.reading_log_entries):
+                cols = st.columns([3, 1, 1])
+                entry['book'] = cols[0].selectbox("Book Title", st.session_state.library_df['Title'].unique(), key=f"book_{i}")
+                entry['pages'] = cols[1].number_input("Pages", min_value=1, step=1, key=f"pages_{i}")
+                entry['time'] = cols[2].number_input("Mins", min_value=1, step=1, key=f"time_{i}")
+            
+            col_add, col_submit = st.columns([1, 5])
+            if col_add.form_submit_button("Add Another Book"):
+                st.session_state.reading_log_entries.append({"book": "", "pages": 1, "time": 1})
+                st.rerun()
+            
+            if col_submit.form_submit_button("Submit All Log Entries"):
+                for entry in st.session_state.reading_log_entries:
+                    new_log_entry = pd.DataFrame([{"Date": str(date.today()), "Book Title": entry['book'], "Pages Read": entry['pages'], "Time Spent (min)": entry['time']}])
+                    st.session_state.log_df = pd.concat([st.session_state.log_df, new_log_entry], ignore_index=True)
+                save_data(st.session_state.log_df, LOG_FILE)
+                st.session_state.reading_log_entries = [{"book": "", "pages": 1, "time": 1}] 
+                st.success("Successfully logged all reading entries!")
+                st.rerun()
+    else:
+        st.warning("You must add books to your library before you can log your reading.")
 
     st.markdown("---")
     st.subheader("Daily Report")
