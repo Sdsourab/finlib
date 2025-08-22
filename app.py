@@ -10,7 +10,7 @@ import plotly.graph_objects as go
 # Sets the basic configuration for the Streamlit page.
 st.set_page_config(
     page_title="Finoptiv Library",
-    page_icon="🌿",
+    page_icon="📚",
     layout="wide",
     initial_sidebar_state="expanded"
 )
